@@ -1,0 +1,20 @@
+# Define the vector
+assignment2 <- c(16, 18, 14, 22, 27, 17, 19, 17, 17, 22, 20, 22)
+
+# Original function as written (contains mistakes)
+myMean <- function(assignment2) {
+  return(sum(assignment) / length(someData))
+}
+
+# Try running the function (will produce an error)
+myMean(assignment2) # Error: object 'assignment' not found
+
+# --- Corrected version ---
+
+# Define the corrected function
+myMean <- function(assignment2) {
+  return(sum(assignment2) / length(assignment2))
+}
+
+# Now run the function again
+myMean(assignment2) # Should output [1] 19.25
