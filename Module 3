@@ -1,0 +1,40 @@
+# Load required libraries
+library(ggplot2)
+
+# Define vectors
+Name <- c("Jeb", "Donald", "Ted", "Marco", "Carly", "Hillary", "Bernie")
+ABC_poll <- c(4, 62, 51, 21, 2, 14, 15)
+CBS_poll <- c(12, 75, 43, 19, 1, 21, 19)
+
+# Combine into a data frame
+df_polls <- data.frame(Name, ABC_poll, CBS_poll)
+
+# Inspect data
+str(df_polls)
+head(df_polls)
+
+# Compute summary statistics
+mean_ABC <- mean(df_polls$ABC_poll)
+median_CBS <- median(df_polls$CBS_poll)
+range_polls <- range(c(df_polls$ABC_poll, df_polls$CBS_poll))
+
+# Add a column for the difference between CBS and ABC
+df_polls$Diff <- df_polls$CBS_poll - df_polls$ABC_poll # fixed typo here
+
+# Print summary statistics
+print(paste("Mean of ABC_poll:", mean_ABC))
+print(paste("Median of CBS_poll:", median_CBS))
+print(paste("Range of polls:", paste(range_polls, collapse = " - ")))
+
+# View the updated data framehttp://127.0.0.1:25342/graphics/457626da-ca95-4ae0-a14d-dc24ceb024b9.png
+print(df_polls)
+
+# Plot: Bar chart comparing ABC and CBS polls
+library(reshape2)
+df_polls_melted <- melt(df_polls, id.vars = "Name", measure.vars = c("ABC_poll", "CBS_poll"))
+
+ggplot(df_polls_melted, aes(x = Name, y = value, fill = variable)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "ABC vs CBS Poll Results", y = "Poll Percentage", x = "Candidate") +
+  scale_fill_manual(values = c("steelblue", "darkorange"), name = "Poll Source") +
+  theme_minimal()
