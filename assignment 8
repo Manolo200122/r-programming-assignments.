@@ -1,0 +1,263 @@
+# Module # 8 Correlation Analysis and ggplot2
+# input console
+
+# Import data
+# Step 1: Import the data
+student6 <- read.table(
+  "C:/Users/Alejandro/OneDrive/Documents/Assignment 6 Dataset.txt",
+  header = TRUE,
+  sep = ",",
+  stringsAsFactors = FALSE
+)
+cat("Step 1: Imported Data\n")
+print(student6)
+
+# Step 2: Load plyr and compute mean of Grade by Sex
+library(plyr)
+gender_mean <- ddply(
+  student6,
+  "Sex",
+  summarise,
+  GradeAverage = mean(Grade, na.rm = TRUE)
+)
+cat("\nStep 2: Mean Grade by Sex\n")
+print(gender_mean)
+
+# Step 3: Write the grouped means to a text file
+write.table(
+  gender_mean,
+  file = "gender_mean.txt",
+  sep  = "\t",
+  row.names = FALSE
+)
+cat("\nStep 3: Wrote gender_mean.txt\n")
+print(read.table("gender_mean.txt", header = TRUE, sep = "\t"))
+
+# Step 4: Filter Names Containing “i” or “I”
+i_students <- subset(
+  student6,
+  grepl("i", Name, ignore.case = TRUE)
+)
+cat("\nStep 4: Filtered Students with 'i' or 'I' in Name\n")
+print(i_students)
+
+# Step 5: Extract just the names and write them to a CSV
+write.csv(
+  i_students$Name,
+  file      = "i_students.csv",
+  row.names = FALSE,
+  quote     = FALSE
+)
+cat("\nStep 5: Wrote i_students.csv\n")
+print(read.csv("i_students.csv", header = TRUE))
+
+# Step 6: Export full filtered dataset
+write.csv(
+  i_students,
+  file      = "i_students_full.csv",
+  row.names = FALSE
+)
+cat("\nStep 6: Wrote i_students_full.csv\n")
+print(read.csv("i_students_full.csv", header = TRUE))
+
+# Step 7: Confirm the files exist in your working directory
+cat("\nStep 7: Files in Working Directory\n")
+print(list.files(pattern = "gender_mean|i_students"))
+
+# Output console
+
+ student6 <- read.table(
++   "C:/Users/Alejandro/OneDrive/Documents/Assignment 6 Dataset.txt",
++   header = TRUE,
++   sep = ",",
++   stringsAsFactors = FALSE
++ )
+> 
+> # Step 2: Load plyr and compute mean of Grade by Sex
+> library(plyr)
+> gender_mean <- ddply(
++   student6,
++   "Sex",
++   summarise,
++   GradeAverage = mean(Grade, na.rm = TRUE)
++ )
+> 
+> # Step 3: Write the grouped means to a text file
+> write.table(
++   gender_mean,
++   file = "gender_mean.txt",
++   sep  = "\t",
++   row.names = FALSE
++ )
+> 
+> # Step 4: Filter Names Containing “i” or “I”
+> i_students <- subset(
++   student6,
++   grepl("i", Name, ignore.case = TRUE)
++ )
+> 
+> # Step 5: Extract just the names and write them to a CSV
+> write.csv(
++   i_students$Name,
++   file      = "i_students.csv",
++   row.names = FALSE,
++   quote     = FALSE
++ )
+> 
+> # Step 6: Export full filtered dataset
+> write.csv(
++   i_students,
++   file      = "i_students_full.csv",
++   row.names = FALSE
++ )
+> 
+> # Step 7: Confirm the files exist in your working directory
+> list.files(pattern = "gender_mean|i_students")
+[1] "gender_mean.txt"     "i_students.csv"      "i_students_full.csv"
+> # Step 1: Import the data
+> student6 <- read.table(
++   "C:/Users/Alejandro/OneDrive/Documents/Assignment 6 Dataset.txt",
++   header = TRUE,
++   sep = ",",
++   stringsAsFactors = FALSE
++ )
+> cat("Step 1: Imported Data\n")
+Step 1: Imported Data
+> print(student6)
+        Name Age    Sex Grade
+1       Raul  25   Male    80
+2     Booker  18   Male    83
+3      Lauri  21 Female    90
+4     Leonie  21 Female    91
+5    Sherlyn  22 Female    85
+6    Mikaela  20 Female    69
+7    Raphael  23   Male    91
+8       Aiko  24 Female    97
+9   Tiffaney  21 Female    78
+10    Corina  23 Female    81
+11 Petronila  23 Female    98
+12    Alecia  20 Female    87
+13   Shemika  23 Female    97
+14    Fallon  22 Female    90
+15   Deloris  21 Female    67
+16    Randee  23 Female    91
+17     Eboni  20 Female    84
+18   Delfina  19 Female    93
+19 Ernestina  19 Female    93
+20      Milo  19   Male    67
+> 
+> # Step 2: Load plyr and compute mean of Grade by Sex
+> library(plyr)
+> gender_mean <- ddply(
++   student6,
++   "Sex",
++   summarise,
++   GradeAverage = mean(Grade, na.rm = TRUE)
++ )
+> cat("\nStep 2: Mean Grade by Sex\n")
+
+Step 2: Mean Grade by Sex
+> print(gender_mean)
+     Sex GradeAverage
+1 Female      86.9375
+2   Male      80.2500
+> 
+> # Step 3: Write the grouped means to a text file
+> write.table(
++   gender_mean,
++   file = "gender_mean.txt",
++   sep  = "\t",
++   row.names = FALSE
++ )
+> cat("\nStep 3: Wrote gender_mean.txt\n")
+
+Step 3: Wrote gender_mean.txt
+> print(read.table("gender_mean.txt", header = TRUE, sep = "\t"))
+     Sex GradeAverage
+1 Female      86.9375
+2   Male      80.2500
+> 
+> # Step 4: Filter Names Containing “i” or “I”
+> i_students <- subset(
++   student6,
++   grepl("i", Name, ignore.case = TRUE)
++ )
+> cat("\nStep 4: Filtered Students with 'i' or 'I' in Name\n")
+
+Step 4: Filtered Students with 'i' or 'I' in Name
+> print(i_students)
+        Name Age    Sex Grade
+3      Lauri  21 Female    90
+4     Leonie  21 Female    91
+6    Mikaela  20 Female    69
+8       Aiko  24 Female    97
+9   Tiffaney  21 Female    78
+10    Corina  23 Female    81
+11 Petronila  23 Female    98
+12    Alecia  20 Female    87
+13   Shemika  23 Female    97
+15   Deloris  21 Female    67
+17     Eboni  20 Female    84
+18   Delfina  19 Female    93
+19 Ernestina  19 Female    93
+20      Milo  19   Male    67
+> 
+> # Step 5: Extract just the names and write them to a CSV
+> write.csv(
++   i_students$Name,
++   file      = "i_students.csv",
++   row.names = FALSE,
++   quote     = FALSE
++ )
+> cat("\nStep 5: Wrote i_students.csv\n")
+
+Step 5: Wrote i_students.csv
+> print(read.csv("i_students.csv", header = TRUE))
+           x
+1      Lauri
+2     Leonie
+3    Mikaela
+4       Aiko
+5   Tiffaney
+6     Corina
+7  Petronila
+8     Alecia
+9    Shemika
+10   Deloris
+11     Eboni
+12   Delfina
+13 Ernestina
+14      Milo
+> 
+> # Step 6: Export full filtered dataset
+> write.csv(
++   i_students,
++   file      = "i_students_full.csv",
++   row.names = FALSE
++ )
+> cat("\nStep 6: Wrote i_students_full.csv\n")
+
+Step 6: Wrote i_students_full.csv
+> print(read.csv("i_students_full.csv", header = TRUE))
+        Name Age    Sex Grade
+1      Lauri  21 Female    90
+2     Leonie  21 Female    91
+3    Mikaela  20 Female    69
+4       Aiko  24 Female    97
+5   Tiffaney  21 Female    78
+6     Corina  23 Female    81
+7  Petronila  23 Female    98
+8     Alecia  20 Female    87
+9    Shemika  23 Female    97
+10   Deloris  21 Female    67
+11     Eboni  20 Female    84
+12   Delfina  19 Female    93
+13 Ernestina  19 Female    93
+14      Milo  19   Male    67
+> 
+> # Step 7: Confirm the files exist in your working directory
+> cat("\nStep 7: Files in Working Directory\n")
+
+Step 7: Files in Working Directory
+> print(list.files(pattern = "gender_mean|i_students"))
+[1] "gender_mean.txt"     "i_students.csv"      "i_students_full.csv"
