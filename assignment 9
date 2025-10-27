@@ -1,0 +1,99 @@
+data("airquality")   # Built-in dataset in base R
+head(airquality)
+# Base R Graphics
+# Scatter plot (Ozone vs Temp)
+plot(airquality$Temp, airquality$Ozone,
+     main = "Base: Ozone vs Temperature",
+     xlab = "Temperature (F)",
+     ylab = "Ozone (ppb)",
+     col  = "blue", pch = 16)
+
+# Histogram (Wind distribution)
+hist(airquality$Wind,
+     main = "Base: Wind Speed Distribution",
+     xlab = "Wind (mph)",
+     col = "lightblue", border = "black")
+
+# Lattice Graphics
+library(lattice)
+
+# Conditional scatter plot: Ozone vs Temp by Month
+xyplot(Ozone ~ Temp | factor(Month), data = airquality,
+       main = "Lattice: Ozone vs Temp by Month",
+       xlab = "Temperature (F)", ylab = "Ozone (ppb)",
+       pch = 16, layout = c(3, 2), col = "red")
+
+# Boxplot: Ozone by Month
+bwplot(Ozone ~ factor(Month), data = airquality,
+       main = "Lattice: Ozone by Month",
+       xlab = "Month", ylab = "Ozone (ppb)",
+       fill = "gray")
+
+# ggplot2 Graphics
+library(ggplot2)
+
+# Scatter plot with linear smooth by Month
+ggplot(airquality, aes(x = Temp, y = Ozone, color = factor(Month))) +
+  geom_point(na.rm = TRUE) +
+  geom_smooth(method = "lm", se = FALSE, na.rm = TRUE) +
+  labs(title = "ggplot2: Ozone vs Temp by Month", x = "Temperature (F)", y = "Ozone (ppb)", color = "Month") +
+  theme_minimal()
+
+# Faceted histogram of Wind by Month
+ggplot(airquality, aes(Wind)) +
+  geom_histogram(binwidth = 1, fill = "skyblue", color = "black", na.rm = TRUE) +
+  facet_wrap(~ Month) +
+  labs(title = "ggplot2: Wind Distribution by Month", x = "Wind (mph)", y = "Count") +
+  theme_minimal()
+
+OUTPUT:
+ data("airquality")   # Built-in dataset in base R
+> head(airquality)
+  Ozone Solar.R Wind Temp Month Day
+1    41     190  7.4   67     5   1
+2    36     118  8.0   72     5   2
+3    12     149 12.6   74     5   3
+4    18     313 11.5   62     5   4
+5    NA      NA 14.3   56     5   5
+6    28      NA 14.9   66     5   6
+> # Scatter plot (Ozone vs Temp)
+> plot(airquality$Temp, airquality$Ozone,
++      main = "Base: Ozone vs Temperature",
++      xlab = "Temperature (F)",
++      ylab = "Ozone (ppb)",
++      col  = "blue", pch = 16)
+> 
+> # Histogram (Wind distribution)
+> hist(airquality$Wind,
++      main = "Base: Wind Speed Distribution",
++      xlab = "Wind (mph)",
++      col = "lightblue", border = "black")
+> library(lattice)
+> 
+> # Conditional scatter plot: Ozone vs Temp by Month
+> xyplot(Ozone ~ Temp | factor(Month), data = airquality,
++        main = "Lattice: Ozone vs Temp by Month",
++        xlab = "Temperature (F)", ylab = "Ozone (ppb)",
++        pch = 16, layout = c(3, 2), col = "red")
+> 
+> # Boxplot: Ozone by Month
+> bwplot(Ozone ~ factor(Month), data = airquality,
++        main = "Lattice: Ozone by Month",
++        xlab = "Month", ylab = "Ozone (ppb)",
++        fill = "gray")
+> library(ggplot2)
+> 
+> # Scatter plot with linear smooth by Month
+> ggplot(airquality, aes(x = Temp, y = Ozone, color = factor(Month))) +
++   geom_point(na.rm = TRUE) +
++   geom_smooth(method = "lm", se = FALSE, na.rm = TRUE) +
++   labs(title = "ggplot2: Ozone vs Temp by Month", x = "Temperature (F)", y = "Ozone (ppb)", color = "Month") +
++   theme_minimal()
+`geom_smooth()` using formula = 'y ~ x'
+> 
+> # Faceted histogram of Wind by Month
+> ggplot(airquality, aes(Wind)) +
++   geom_histogram(binwidth = 1, fill = "skyblue", color = "black", na.rm = TRUE) +
++   facet_wrap(~ Month) +
++   labs(title = "ggplot2: Wind Distribution by Month", x = "Wind (mph)", y = "Count") +
++   theme_minimal()
