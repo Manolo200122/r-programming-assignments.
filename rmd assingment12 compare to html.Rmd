@@ -1,0 +1,55 @@
+---
+title: "Assignment 12"
+author: "Alejandro Nerys"
+date: "2025-11-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown intro
+R Markdown is a powerful format that combines narrative text, executable R code, and the resulting output into a single document. This integration promotes reproducible research by enabling others to see both the code and its outputs alongside the explanations, making it easier to verify and update analyses seamlessly.
+
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+library(ggplot2)
+data(mtcars)
+
+```
+
+## Simple analysis and plot
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+summary(mtcars$mpg)
+ggplot(mtcars, aes(x=mpg)) + geom_histogram(binwidth=5)
+
+```
+EX:The product of two numbers $3 \times 4 = 12$ demonstrates simple multiplication inline. Similarly, $7 \times 8 = 56$ shows another example.
+
+```{Equation display}
+Here is a displayed multiplication equation:
+
+$$
+3 \times 4 = 12
+$$
+
+And another one:
+
+$$
+7 \times 8 = 56
+$$
+
+```
+
+Comparing the .Rmd source and its HTML rendering revealed how markdown text, La-TeX math expressions, and R code chunks are cleanly transformed into formatted, displayed equations, and interactive plots without extra manual formatting. One formatting surprise during knitting was the smooth handling of La-TeX formulas with minimal syntax, making math expressions highly readable in the output. Additionally, automatic code execution and output embedding eliminate redundancy and future-proofs analyses against manual errors. Overall, this workflow provides a well-organized, reproducible, and elegant reporting experience that I would prefer over separate script and narrative files.
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
